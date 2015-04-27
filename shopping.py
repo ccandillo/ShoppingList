@@ -13,7 +13,7 @@ class ShoppingListTemplate(Ingredient):
     def delete_item():
         pass
 
-    def modify_list():
+    def modify_item():
         pass
 
 
