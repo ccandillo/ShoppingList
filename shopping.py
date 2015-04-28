@@ -16,6 +16,11 @@ class ShoppingListTemplate(Ingredient):
     def modify_item():
         pass
 
+    def update_db(self):
+        food = self.ingredients[-1].food
+        self.conn.execute('INSERT INTO Food (ingredient) VALUES("%s")' % (food))
+        self.conn.commit()
+
 
 class ShoppingList(ShoppingListTemplate, QueryTemplate):
     def construct_query(self):
@@ -40,6 +45,7 @@ if __name__ == '__main__':
     shoppinglist = ShoppingList()
     shoppinglist.add_item()
     shoppinglist.connect()
+    shoppinglist.update_db()
     shoppinglist.construct_query()
     shoppinglist.do_query()
     shoppinglist.format_results()
