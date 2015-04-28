@@ -4,10 +4,10 @@ class IngredientTemplate:
     def add_ingredient(self):
         self.food = input('Enter Ingredient: ')
 
-    def delete_ingredient():
-        raise NotImplementedError()
+    def add_category(self):
+        self.category = input('Enter Category: ')
 
-    def add_category():
+    def delete_ingredient():
         raise NotImplementedError()
 
     def delete_catetory():

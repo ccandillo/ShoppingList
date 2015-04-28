@@ -5,10 +5,14 @@ from query import QueryTemplate
 class ShoppingListTemplate(Ingredient):
     ingredients = []
 
-    def add_item(self):
+    def add_item_ingredient(self):
         ingredient = Ingredient()
         ingredient.add_ingredient()
         self.ingredients.append(ingredient)
+
+    def add_item_category(self, ingredient_obj):
+        category = ingredient_obj
+        category.add_category()
 
     def delete_item():
         pass
@@ -18,7 +22,8 @@ class ShoppingListTemplate(Ingredient):
 
     def update_db(self):
         food = self.ingredients[-1].food
-        self.conn.execute('INSERT INTO Food (ingredient) VALUES("%s")' % (food))
+        category = self.ingredients[-1].category
+        self.conn.execute('INSERT INTO Food (ingredient, category) VALUES("%s", "%s")' % (food, category))
         self.conn.commit()
 
 
@@ -30,7 +35,8 @@ class ShoppingList(ShoppingListTemplate, QueryTemplate):
         print(self.formatted_results)
 
     def process_format(self):
-        self.add_item()
+        self.add_item_ingredient()
+        self.add_item_category(self.ingredients[-1])
         self.connect()
         self.query_db()
         self.update_db()
@@ -43,7 +49,8 @@ class ShoppingList(ShoppingListTemplate, QueryTemplate):
 
 if __name__ == '__main__':
     shoppinglist = ShoppingList()
-    shoppinglist.add_item()
+    shoppinglist.add_item_ingredient()
+    shoppinglist.add_item_category(shoppinglist.ingredients[-1])
     shoppinglist.connect()
     shoppinglist.update_db()
     shoppinglist.construct_query()
